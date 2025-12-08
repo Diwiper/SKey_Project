@@ -13,7 +13,7 @@ int main() {
     Component* c1 = new Case("Tofu60", 120.0, "KBDFans", "60%", "Tray", "Black", "Brass");
 
     // PCB: name, price, manufacturer, socketType, hasRGB, supportedLayout
-    Component* c2 = new PCB("DZ60RGB", 55.0, "KBDFans", "Hotswap", true, "60%");
+    Component* c2 = new PCB("DZ60RGB", 55.0, "KBDFans", "Hotswap", true, "TKL");
 
     // Switch: name, price, manufacturer, switchType, actuationForce
     Component* c3 = new Switch("Gateron Yellow", 25.0, "Gateron", "Linear", 50);

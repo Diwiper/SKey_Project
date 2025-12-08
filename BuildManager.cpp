@@ -28,7 +28,7 @@ void BuildManager::addComponent(Component* c) {
         string caseFF = myCase->getFormFactor();
         string pcbLayout = myPcb->getSupportedLayout();
 
-        if (caseFF != pcbLayout) {
+        if (caseFF != pcbLayout ) {
             cout << "\n[ERROR] Incompatible Component!" << endl;
             cout << "Cannot add PCB (" << pcbLayout << ") into Case (" << caseFF << ")." << endl;
             cout << "Component rejected.\n" << endl;
