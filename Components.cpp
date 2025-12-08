@@ -1,6 +1,5 @@
 #include "Components.h"
 
-// --- Component ---
 Component::Component(string n, double p, string m) : name(n), price(p), manufacturer(m) {}
 Component::~Component() {}
 
@@ -8,9 +7,8 @@ string Component::getName() const { return name; }
 double Component::getPrice() const { return price; }
 string Component::getManufacturer() const { return manufacturer; }
 
-void Component::printInfo() const {cout << name << " (" << manufacturer << ") - $" << price;}
+void Component::printInfo() const { cout << name << " (" << manufacturer << ") - $" << price; }
 
-// --- Case ---
 Case::Case(string n, double p, string m, string ff, string mt, string c, string pm)
     : Component(n, p, m), formFactor(ff), mountType(mt), color(c), plateMaterial(pm) {
 }
@@ -23,7 +21,10 @@ void Case::printInfo() const {
 }
 string Case::getType() const { return "Case"; }
 
-// --- PCB ---
+string Case::getFormFactor() const {
+    return formFactor;
+}
+
 PCB::PCB(string n, double p, string m, string st, bool rgb, string sl)
     : Component(n, p, m), socketType(st), hasRGB(rgb), supportedLayout(sl) {
 }
@@ -36,7 +37,10 @@ void PCB::printInfo() const {
 }
 string PCB::getType() const { return "PCB"; }
 
-// --- Switch ---
+string PCB::getSupportedLayout() const {
+    return supportedLayout;
+}
+
 Switch::Switch(string n, double p, string m, string st, int af)
     : Component(n, p, m), switchType(st), actuationForce(af) {
 }
