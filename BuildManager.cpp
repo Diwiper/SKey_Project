@@ -1,4 +1,5 @@
 #include "BuildManager.h"
+#include "Components.h"
 #include <fstream>
 #include <iostream>
 
@@ -6,12 +7,35 @@ BuildManager::BuildManager() : totalPrice(0.0) {}
 
 BuildManager::~BuildManager() {
     for (Component* c : currentBuild) {
-        delete c; // Видаляємо об'єкти, щоб не було витоку пам'яті
+        delete c;
     }
     currentBuild.clear();
 }
 
 void BuildManager::addComponent(Component* c) {
+    Component* currentCasePtr = nullptr;
+    for (Component* existing : currentBuild) {
+        if (existing->getType() == "Case") {
+            currentCasePtr = existing;
+            break;
+        }
+    }
+
+    if (c->getType() == "PCB" && currentCasePtr != nullptr) {
+        Case* myCase = static_cast<Case*>(currentCasePtr);
+        PCB* myPcb = static_cast<PCB*>(c);
+
+        string caseFF = myCase->getFormFactor();
+        string pcbLayout = myPcb->getSupportedLayout();
+
+        if (caseFF != pcbLayout) {
+            cout << "\n[ERROR] Incompatible Component!" << endl;
+            cout << "Cannot add PCB (" << pcbLayout << ") into Case (" << caseFF << ")." << endl;
+            cout << "Component rejected.\n" << endl;
+            return;
+        }
+    }
+
     currentBuild.push_back(c);
     totalPrice += c->getPrice();
     cout << "Added: " << c->getName() << ". New Total: $" << totalPrice << endl;
@@ -23,8 +47,8 @@ void BuildManager::removeComponent(int index) {
         totalPrice -= c->getPrice();
         cout << "Removed: " << c->getName() << endl;
 
-        delete c; // Видаляємо об'єкт з пам'яті
-        currentBuild.erase(currentBuild.begin() + index); // Видаляємо з вектора
+        delete c;
+        currentBuild.erase(currentBuild.begin() + index);
     }
     else {
         cout << "Error: Invalid index!" << endl;
